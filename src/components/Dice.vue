@@ -1,0 +1,30 @@
+<template>
+  <div class="dice">
+    <h1>{{result}}</h1>
+    <b-btn pill varient="outline-secondary" v-on:click="result = roll()">Button</b-btn>
+  </div>
+</template>
+
+<script>
+import SwaggerClient from 'swagger-client';
+
+export default {
+  name: 'Dice',
+  data: function() {
+    return {
+      result: null,
+    };
+  },
+  methods: {
+    roll: function() {
+      new SwaggerClient('http://localhost:8000/openapi.json').then(
+        client => client.apis.dice.roll_api_v1_dice_get()
+      ).then(
+        (result) => {
+          this.result = result.body.result
+        }
+      )
+    }
+  }
+}
+</script>

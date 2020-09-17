@@ -1,4 +1,5 @@
 import fastapi.staticfiles
+import fastapi.middleware.cors
 import socketio
 
 from . import __version__
@@ -23,19 +24,17 @@ def create_app(debug=False):
     app.add_route("/socket.io/", route=sio_asgi_app, methods=['GET', 'POST'])
     app.add_websocket_route("/socket.io/", sio_asgi_app)
     app.mount(
-        '/html',
-        fastapi.staticfiles.StaticFiles(directory='dicetower/static/html', html=True),
-        name='html',
+        '/ui',
+        fastapi.staticfiles.StaticFiles(directory='dicetower/static/', html=True, check_dir=False),
+        name='webapp',
     )
-    app.mount(
-        '/js',
-        fastapi.staticfiles.StaticFiles(directory='dicetower/static/js', html=True),
-        name='javascript',
-    )
-    app.mount(
-        '/css',
-        fastapi.staticfiles.StaticFiles(directory='dicetower/static/css', html=True),
-        name='styles',
+
+    app.add_middleware(
+        fastapi.middleware.cors.CORSMiddleware,
+        allow_origins=config.ALLOW_ORIGINS_RND,
+        allow_credentials=True,
+        allow_methods=['*'],
+        allow_headers=['*'],
     )
 
     load_handlers(app)
