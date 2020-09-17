@@ -7,5 +7,5 @@ class Configuration(metaclass=figenv.MetaConfig):
     ALLOW_ORIGIN = ['dicetower.app']
     ALLOW_ORIGINS_RND = [
         'http://localhost:8000',
-        'http://localhost:8080'
+        'http://localhost:8080',
     ]

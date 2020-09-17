@@ -1,7 +1,7 @@
 <template>
   <div class="dice">
-    <h1>{{result}}</h1>
     <b-btn pill varient="outline-secondary" v-on:click="result = roll()">Button</b-btn>
+    <h1>{{result}}</h1>
   </div>
 </template>
 
