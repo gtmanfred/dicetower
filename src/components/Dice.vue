@@ -13,11 +13,12 @@ export default {
   data: function() {
     return {
       result: null,
+      client: new SwaggerClient('http://localhost:8000/openapi.json')
     };
   },
   methods: {
     roll: function() {
-      new SwaggerClient('http://localhost:8000/openapi.json').then(
+      this.client.then(
         client => client.apis.dice.roll_api_v1_dice_get()
       ).then(
         (result) => {
