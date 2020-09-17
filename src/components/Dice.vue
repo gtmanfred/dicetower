@@ -13,7 +13,7 @@ export default {
   data: function() {
     return {
       result: null,
-      client: new SwaggerClient('http://localhost:8000/openapi.json')
+      client: new SwaggerClient('http://localhost:8080/openapi.json')
     };
   },
   methods: {
