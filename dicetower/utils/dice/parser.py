@@ -7,7 +7,6 @@ from .lexer import DiceLexer
 
 class DiceParser(sly.Parser):
     tokens = DiceLexer.tokens
-    debugfile = 'parser.out'
 
     precedence = (
         ('left', PLUS, MINUS),
@@ -20,7 +19,7 @@ class DiceParser(sly.Parser):
 
     @_('statement')
     def statements(self, p):
-        return [p.statement]
+        return p.statement
 
     @_('expr PLUS expr')
     def expr(self, p):
@@ -28,15 +27,15 @@ class DiceParser(sly.Parser):
 
     @_('expr MINUS expr')
     def expr(self, p):
-        return ('MIN', p.expr0, p.expr1)
+        return ('MINUS', p.expr0, p.expr1)
 
     @_('expr TIMES expr')
     def expr(self, p):
-        return ('MUL', p.expr0, p.expr1)
+        return ('TIMES', p.expr0, p.expr1)
 
     @_('expr DIVIDE expr')
     def expr(self, p):
-        return ('DIV', p.expr0, p.expr1)
+        return ('DIVIDE', p.expr0, p.expr1)
 
     @_('LPAREN expr RPAREN')
     def expr(self, p):
@@ -48,7 +47,7 @@ class DiceParser(sly.Parser):
 
     @_('NUMBER')
     def expr(self, p):
-        return int(p.NUMBER)
+        return ('NUMBER', int(p.NUMBER))
 
     @staticmethod
     def _dice(number, dice):
@@ -63,19 +62,19 @@ class DiceParser(sly.Parser):
 
     @_('NUMBER DICE KEEPHIGH NUMBER')
     def expr(self, p):
-        return ('KEEPHIGH', p.NUMBER1, self._dice(p.NUMBER0, p.DICE))
+        return ('KEEPHIGH', int(p.NUMBER1), self._dice(p.NUMBER0, p.DICE))
 
     @_('NUMBER DICE KEEPLOW NUMBER')
     def expr(self, p):
-        return ('KEEPLOW', p.NUMBER1, self._dice(p.NUMBER0, p.DICE))
+        return ('KEEPLOW', int(p.NUMBER1), self._dice(p.NUMBER0, p.DICE))
 
     @_('NUMBER DICE DROPHIGH NUMBER')
     def expr(self, p):
-        return ('DROPHIGH', p.NUMBER1, self._dice(p.NUMBER0, p.DICE))
+        return ('DROPHIGH', int(p.NUMBER1), self._dice(p.NUMBER0, p.DICE))
 
     @_('NUMBER DICE DROPLOW NUMBER')
     def expr(self, p):
-        return ('DROPLOW', p.NUMBER1, self._dice(p.NUMBER0, p.DICE))
+        return ('DROPLOW', int(p.NUMBER1), self._dice(p.NUMBER0, p.DICE))
 
 
 def parse(expr):

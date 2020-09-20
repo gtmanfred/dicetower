@@ -1,7 +1,10 @@
+# type: ignore
+# flake8: noqa
 import sly
 
 
 class DiceLexer(sly.Lexer):
+
     tokens = {
         NUMBER, DICE,
         LPAREN, RPAREN,
