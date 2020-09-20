@@ -113,6 +113,17 @@ version = "4.4.2"
 
 [[package]]
 category = "main"
+description = "Tabletop RPG Dice roller"
+name = "dicetray"
+optional = false
+python-versions = ">=3.6,<4.0"
+version = "0.1.0"
+
+[package.dependencies]
+sly = ">=0.4,<0.5"
+
+[[package]]
+category = "main"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 name = "fastapi"
 optional = false
@@ -605,7 +616,7 @@ python-versions = ">=3.6.1"
 version = "8.1"
 
 [metadata]
-content-hash = "4aa3785039e02ef519e13a335be6d0a3d4e2827f5266564acfd2cfa4b4778e2b"
+content-hash = "a6857261b63a5fd8d31cf1c4aadb90c59c55f1d7a6dce8a6b9496922211d08fb"
 lock-version = "1.0"
 python-versions = "^3.8"
 
@@ -689,6 +700,9 @@ cycler = [
 decorator = [
     {file = "decorator-4.4.2-py2.py3-none-any.whl", hash = "sha256:41fa54c2a0cc4ba648be4fd43cff00aedf5b9465c9bf18d64325bc225f08f760"},
     {file = "decorator-4.4.2.tar.gz", hash = "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"},
+]
+dicetray = [
+    {file = "dicetray-0.1.0-py3-none-any.whl", hash = "sha256:4ca64b808d0c079ecb5d97c2086c1357ec345d03e61bd219a17eba110fdb44ea"},
 ]
 fastapi = [
     {file = "fastapi-0.61.1-py3-none-any.whl", hash = "sha256:6cc31bb555dd8ca956d1d227477d661e4ac012337242a41d36214ffbda78bfe9"},
