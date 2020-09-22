@@ -18,7 +18,7 @@ ADD package.json .
 RUN npm install && \
     python3 -m pip install poetry && \
     python3 -m poetry config virtualenvs.path /app/.cache/pypoetry/virtualenvs/ && \
-    python3 -m poetry install && \
+    python3 -m poetry install --no-dev --no-root && \
     rm -rf /app/.cache/pypoetry/cache /root/.cache/pip
 
 COPY ./ .
