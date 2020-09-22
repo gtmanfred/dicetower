@@ -35,6 +35,9 @@ jobs:
         file: ./coverage.xml
         flags: unittests
         fail_ci_if_error: true
+    - name: clean for build
+      run: |
+        git clean -xdf
     - name: Login to Heroku Container registry
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
