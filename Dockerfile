@@ -1,6 +1,6 @@
 FROM debian:sid-slim
 WORKDIR /app
-CMD python3 -m poetry run python -m wsgi
+CMD /usr/bin/python3 -m poetry run python -m wsgi
 EXPOSE 8000
 
 RUN apt update && \
@@ -17,8 +17,9 @@ ADD package.json .
 
 RUN npm install && \
     python3 -m pip install poetry && \
+    python3 -m poetry config virtualenvs.path /app/.cache/pypoetry/virtualenvs/ && \
     python3 -m poetry install && \
-    rm -rf /root/.cache/pypoetry/cache /root/.cache/pip
+    rm -rf /app/.cache/pypoetry/cache /root/.cache/pip
 
 COPY ./ .
 
