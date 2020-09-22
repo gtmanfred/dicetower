@@ -25,6 +25,7 @@ pnpm-debug.log*
 *.egg-info/
 __pycache__
 node_modules/
+*.xml
 
 # Ignore the directory where vue will put files
 /dicetower/static/
