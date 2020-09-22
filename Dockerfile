@@ -1,6 +1,6 @@
 FROM debian:sid-slim
 WORKDIR /app
-CMD python3 -m poetry run uvicorn --host 0.0.0.0 wsgi:app
+CMD python3 -m poetry run python -m wsgi
 EXPOSE 8000
 
 RUN apt update && \
