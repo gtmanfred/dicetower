@@ -4,6 +4,5 @@ from .config import Configuration as config
 
 
 sio = socketio.AsyncServer(
-    async_mode='asgi',
-    cors_allowed_origins=','.join(config.ALLOW_ORIGIN)
+    async_mode="asgi", cors_allowed_origins=",".join(config.ALLOW_ORIGIN)
 )

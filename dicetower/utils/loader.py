@@ -9,7 +9,6 @@ import fastapi
 
 
 class HandlerLoader(importlib.abc.SourceLoader):
-
     def __init__(self, fullname, path):
         """Cache the module name and the path to the file found by the
         finder."""
@@ -20,18 +19,18 @@ class HandlerLoader(importlib.abc.SourceLoader):
         return self.path
 
     def get_data(self, path):
-        with open(path, 'rb') as codefile:
+        with open(path, "rb") as codefile:
             return codefile.read()
 
     def exec_module(self, module, app: fastapi.FastAPI, version: str):
         super().exec_module(module)
 
-        if (router := getattr(module, 'router', None)) is None:
+        if (router := getattr(module, "router", None)) is None:
             return
 
         app.include_router(
             router,
-            prefix=f'/api/{version}',
+            prefix=f"/api/{version}",
         )
 
         return module
@@ -43,7 +42,7 @@ def load_handlers(app: fastapi.FastAPI):
         (HandlerLoader, importlib.machinery.SOURCE_SUFFIXES),
     ]
 
-    handler_dir = pathlib.Path(os.path.dirname(__file__)).parent / 'handlers'
+    handler_dir = pathlib.Path(os.path.dirname(__file__)).parent / "handlers"
 
     for version_dir in handler_dir.iterdir():
         if not version_dir.is_dir():
@@ -52,7 +51,7 @@ def load_handlers(app: fastapi.FastAPI):
         finder = importlib.machinery.FileFinder(str(version_dir), *loader_details)
 
         for entry in version_dir.iterdir():
-            if entry.name in ('__init__.py', ):
+            if entry.name in ("__init__.py",):
                 continue
 
             # use the FileFinder to find the spec for `entry` module in `path`

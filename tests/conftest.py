@@ -23,5 +23,5 @@ async def app():
 
 @pytest.fixture
 async def client(app):
-    async with httpx.AsyncClient(app=app, base_url='http://dicetower.app/') as client:
+    async with httpx.AsyncClient(app=app, base_url="http://dicetower.app/") as client:
         yield client

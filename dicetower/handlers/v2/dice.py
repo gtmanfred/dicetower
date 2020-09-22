@@ -16,8 +16,8 @@ class RollResult(pydantic.BaseModel):
     dice: typing.List[Dice]
 
 
-@router.get('/dice', response_model=RollResult, tags=['dice'], name='roll')
-async def roll_a_dice(roll: str = fastapi.Query('1d20')):
+@router.get("/dice", response_model=RollResult, tags=["dice"], name="roll")
+async def roll_a_dice(roll: str = fastapi.Query("1d20")):
     tray = Dicetray(roll)
     tray.roll()
-    return {'result': tray.result, 'dice': [dice.__dict__() for dice in tray.dice]}
+    return {"result": tray.result, "dice": [dice.__dict__() for dice in tray.dice]}

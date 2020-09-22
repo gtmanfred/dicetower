@@ -15,17 +15,16 @@ def create_app(debug=False):
         debug=debug,
     )
 
-    sio_asgi_app = socketio.ASGIApp(
-        socketio_server=sio,
-        other_asgi_app=app
-    )
+    sio_asgi_app = socketio.ASGIApp(socketio_server=sio, other_asgi_app=app)
 
-    app.add_route("/socket.io/", route=sio_asgi_app, methods=['GET', 'POST'])
+    app.add_route("/socket.io/", route=sio_asgi_app, methods=["GET", "POST"])
     app.add_websocket_route("/socket.io/", sio_asgi_app)
     app.mount(
-        '/ui',
-        fastapi.staticfiles.StaticFiles(directory='dicetower/static/', html=True, check_dir=False),
-        name='webapp',
+        "/ui",
+        fastapi.staticfiles.StaticFiles(
+            directory="dicetower/static/", html=True, check_dir=False
+        ),
+        name="webapp",
     )
 
     load_handlers(app)
