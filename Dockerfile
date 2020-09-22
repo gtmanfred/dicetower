@@ -9,14 +9,16 @@ RUN apt update && \
         python3-pip \
         python3-venv \
         nodejs \
-        npm
+        npm \
+    && rm -rf /var/lib/apt/lists/*
 
 ADD pyproject.toml .
 ADD package.json .
 
 RUN npm install && \
     python3 -m pip install poetry && \
-    python3 -m poetry install
+    python3 -m poetry install && \
+    rm -rf /root/.cache/pypoetry/cache /root/.cache/pip
 
 COPY ./ .
 
