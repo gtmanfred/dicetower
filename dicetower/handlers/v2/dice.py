@@ -11,12 +11,12 @@ class Dice(pydantic.BaseModel):
     sides: typing.Union[int, str]
 
 
-class RollResult(pydantic.BaseModel):
+class RollResultv2(pydantic.BaseModel):
     result: int
     dice: typing.List[Dice]
 
 
-@router.get("/dice", response_model=RollResult, tags=["dice"], name="roll")
+@router.get("/dice", response_model=RollResultv2, tags=["dice"], name="roll")
 async def roll_a_dice(roll: str = fastapi.Query("1d20")):
     tray = Dicetray(roll)
     tray.roll()
