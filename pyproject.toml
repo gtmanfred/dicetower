@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dicetower"
-version = "0.1.0"
+version = "0.1.1"
 description = "Dicetower Application"
 authors = ["Daniel Wallace <danielwallace@gtmanfred.com>"]
 license = "Apache-2.0"
