@@ -1,0 +1,54 @@
+name: Dicetower Release Prod
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        pip install -U pip poetry
+        poetry install
+    - name: Syntax check
+      run: |
+        make syntax
+    - name: Unit tests
+      run: |
+        make test
+    - name: Code coverage
+      run: |
+        make coverage
+    - name: Codecov.io
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        fail_ci_if_error: true
+    - name: clean for build
+      run: |
+        git clean -xdf
+    - name: Login to Heroku Container registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
+    - name: Build and push
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:push -a ${{ secrets.HEROKU_PROD_APP_NAME }} web
+    - name: Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:release -a ${{ secrets.HEROKU_PROD_APP_NAME }} web
