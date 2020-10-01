@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+canvas { 
+    display: block;
+}
+
+#roll {
+    position: absolute;
+    left: 90%;
+    top: 90%;
+}
+
+#formula {
+    height: 5%;
+    position: absolute;
+    left: 85%;
+    top: 85%;
+}

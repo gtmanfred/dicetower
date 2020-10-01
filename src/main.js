@@ -7,7 +7,7 @@ import {
   BootstrapVue,
   ButtonPlugin
 } from 'bootstrap-vue'
-//import './main.css'
+import './main.css'
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 Vue.use(BootstrapVue)
